@@ -1,148 +1,121 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #2d2d2d;
-    color: #e0e0e0;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.container {
-    background-color: #3b3b3b;
-    border: 1px solid #555;
-    padding: 20px 40px;
-    width: 100%;
-    max-width: 800px;
-}
-
-h1, h2 {
-    text-align: center;
-    color: #f5f5f5;
-}
-
-h1 {
-    margin-bottom: 30px;
-}
-
-h2 {
-    margin-bottom: 25px;
-    color: #cccccc;
-}
-
-.navigation {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.nav-button {
-    background-color: #555;
-    color: #e0e0e0;
-    border: 1px solid #666;
-    padding: 8px 15px;
-    margin: 0 5px;
-}
-
-.nav-button.active {
-    background-color: #4CAF50;
-    border-color: #388E3C;
-    color: #ffffff;
-}
-
-.form-section {
-    border: 2px solid #4CAF50;
-    padding: 25px;
-    background-color: #333;
-    margin-bottom: 30px;
-}
-
-.student-form{
-    display: flex;
-    flex-direction: column;
-}
-
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    flex-basis: calc(50% - 10px);
-    margin-bottom: 10px;
-}
-
-.form-group.full-width {
-    flex-basis: 100%;
-}
-
-.form-group label {
-    margin-right: 10px;
-    flex-basis: 100px;
-    text-align: right;
-    color: #cccccc;
-}
-
-input {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #555;
-    background-color: #f0f0f0;
+    background-color: #f0f4f8;
     color: #333;
+    padding: 20px;
 }
 
-.date-section {
-    border: 1px solid #555;
-    padding: 15px 15px 0 15px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.date-section legend {
-    color: #cccccc;
-    font-weight: bold;
-}
-
-.submit-container {
+header, footer {
+    background-color: #d9e2ec; 
+    color: #1a202c; 
+    padding: 15px 20px;
     text-align: center;
-    margin-top: 10px;
-}
-
-.submit-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 25px;
-}
-
-#display-section {
-    padding: 15px;
-}
-
-#display-section p {
-    margin: 8px 0;
-    color: #cccccc;
-}
-
-.data-value {
-    color: #76ff03;
-    font-weight: bold;
-}
-
-.edit-button {
-    background-color: #ff9800;
-    color: white;
-    padding: 8px 20px;
-    margin-top: 20px;
-    display: block;
+    margin-bottom: 20px;
+    border-bottom: 3px dotted #4a90a4;
 }
 
 footer {
-    text-align: center;
     margin-top: 20px;
-    color: #aaa;
+    border-bottom: none;
+    border-top: 3px dotted #4a90a4;
 }
 
+h1 {
+    color: #4a90a4; 
+    text-transform: uppercase; 
+}
+
+h2 {
+    color: #4a90a4; 
+    border-bottom: 2px dashed #4a90a4; 
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-transform: lowercase;
+}
+
+main {
+    max-width: 900px;
+    padding: 0 10px;
+    margin: auto;
+}
+
+#rejstracjakomitetów, #zarejestrowanekomitety, #wynikiwyborow {
+    background-color: #ffffff; 
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 5px double #d08c60; 
+}
+
+#formularz label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #556b2f; 
+}
+
+#nazwakomitetu,
+#iloscsglosow {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #a9a9a9; 
+    background-color: #f8f8ff; 
+    box-sizing: border-box; 
+}
+
+#czykoalicja {
+    margin-right: 5px;
+}
+
+#dodawanie,
+#liczenie {
+    background-color: #4a90a4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#dodawanie:hover,
+#liczenie:hover {
+    background-color: #357a8b;
+}
+
+
+#wynikiwyborow table {
+    width: 100%;
+}
+
+#wynikiwyborow th,
+#wynikiwyborow td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #c0c0c0;
+    background-color: #f5f5dc; 
+}
+
+#wynikiwyborow th {
+    background-color: #d3d3d3; 
+    font-weight: bold;
+    color: #4a90a4; 
+    border-bottom: 3px solid #4a90a4;
+}
+
+#wynikiwyborow td {
+    border-top: none;
+    border-bottom: none;
+}
+
+#wynikiwyborow tr:last-child td {
+    border-bottom: 1px solid #c0c0c0; 
+}
+
+
+#zarejestrowanekomitety p {
+    background-color: #e0ffff; 
+    border: 1px dashed #87cefa; 
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+}
