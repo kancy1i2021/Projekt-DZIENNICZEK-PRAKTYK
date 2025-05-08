@@ -88,11 +88,14 @@ main {
 }
 
 #wynikiwyborow th,
-#wynikiwyborow td {
+#wynikiwyborow tr {
     text-align: left;
     padding: 10px;
     border: 1px solid #c0c0c0;
-    background-color: #f5f5dc; 
+    background-color: #EB9D9D; 
+}
+#wynikiwyborow .powyzejprogu{
+    background-color: #BAE9B5;
 }
 
 #wynikiwyborow th {
