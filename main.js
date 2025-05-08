@@ -67,16 +67,11 @@ liczenieButton.addEventListener('click', () => {
         });
     }
 
-    const komitetyPowyzejProgu = wynikiSzczegolowe.filter(komitet => komitet.powyzejProgu);
-
-    if (komitetyPowyzejProgu.length === 0) {
-        const row = wynikiTabelaBody.insertRow();
-        const cell = row.insertCell(0);
-        cell.colSpan = 5;
-        cell.textContent = 'Żaden komitet nie przekroczył progu wyborczego.';
-         cell.style.textAlign = 'center';
-         return;
+    function sortowanie(a, b) {
+        return b.glosy - a.glosy; 
     }
+    wynikiSzczegolowe.sort(sortowanie);
+
 
     for (let i = 0; i < wynikiSzczegolowe.length; i++) {
         const komitet = wynikiSzczegolowe[i];
