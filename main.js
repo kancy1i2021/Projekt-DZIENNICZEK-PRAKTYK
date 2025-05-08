@@ -1,47 +1,90 @@
+const dod = document.getElementById('dodawanie');
+const form = document.getElementById('formularz');
+const nazwaKomitetuInput = document.getElementById('nazwakomitetu');
+const czyKoalicjaInput = document.getElementById('czykoalicja');
+const iloscGlosowInput = document.getElementById('iloscsglosow');
+const zarejestrowaneKomitetyDiv = document.getElementById('zarejestrowanekomitety');
+const liczenieButton = document.getElementById('liczenie');
+const wynikiTabelaBody = document.querySelector('#wynikiwyborow table tbody');
 
- const studentForm = document.getElementById('student-form');
- const displaySection = document.getElementById('display-section');
- const formTitle = document.getElementById('form-title');
+const komitety = [];
 
- studentForm.addEventListener('submit', function(event) {
-     event.preventDefault(); 
+dod.addEventListener('click', (event) => {
+    event.preventDefault();
 
-     const imie = document.getElementById('imie').value;
-     const nazwisko = document.getElementById('nazwisko').value;
-     const klasa = document.getElementById('klasa').value;
-     const rokSzkolny = document.getElementById('rok_szkolny').value;
-     const odbytejW = document.getElementById('odbytej_w').value;
-     const dataRozpoczecia = document.getElementById('data_rozpoczecia').value;
-     const dataZakonczenia = document.getElementById('data_zakonczenia').value;
+    const nazwaKomitetu = nazwaKomitetuInput.value.trim();
+    const czyKoalicja = czyKoalicjaInput.checked;
+    const iloscGlosow = parseInt(iloscGlosowInput.value);
 
-     if (!imie || !nazwisko || !klasa || !rokSzkolny || !odbytejW || !dataRozpoczecia || !dataZakonczenia) {
-         alert('Proszę wypełnić wszystkie pola formularza.');
-         return; 
-     }
+    if (nazwaKomitetu === '' || isNaN(iloscGlosow) || iloscGlosow < 0) {
+        alert('Proszę wprowadzić poprawną nazwę komitetu oraz liczbę głosów.');
+        return;
+    }
 
-     
-     const displayHTML = `
-         <p>Imię i nazwisko: <span class="data-value">${imie} ${nazwisko}</span></p>
-         <p>Klasa: <span class="data-value">${klasa}</span>, rok szkolny: <span class="data-value">${rokSzkolny}</span></p>
-         <p>Odbytej w: <span class="data-value">${odbytejW}</span></p>
-         <p>W terminie: od <span class="data-value">${dataRozpoczecia}</span> do <span class="data-value">${dataZakonczenia}</span></p>
-         <button id="edit-button" class="edit-button">Edytuj</button>
-     `;
+    komitety.push({
+        nazwa: nazwaKomitetu,
+        koalicja: czyKoalicja,
+        glosy: iloscGlosow,
+    });
 
-     displaySection.innerHTML = displayHTML;
+    const danekomitetow = document.createElement('p');
+    danekomitetow.innerHTML = `Komitet: <strong>${nazwaKomitetu}</strong>, Koalicja: ${czyKoalicja ? 'Tak' : 'Nie'}, Głosy: <strong>${iloscGlosow}</strong>`;
+    zarejestrowaneKomitetyDiv.appendChild(danekomitetow);
 
-     formTitle.textContent = 'Dane ucznia';
+    nazwaKomitetuInput.value = '';
+    iloscGlosowInput.value = '';
+    czyKoalicjaInput.checked = false;
+});
 
-     studentForm.style.display = 'none';
+liczenieButton.addEventListener('click', () => {
+    wynikiTabelaBody.innerHTML = '';
 
-     displaySection.style.display = 'block';
+    let totalGlosy = 0;
+    for (const komitet of komitety) {
+        totalGlosy += komitet.glosy;
+    }
 
+    if (totalGlosy === 0) {
+        const row = wynikiTabelaBody.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 5;
+        cell.textContent = 'Brak zarejestrowanych głosów.';
+        cell.style.textAlign = 'center';
+        return;
+    }
 
-     const editButton = document.getElementById('edit-button');
-     editButton.addEventListener('click', function() {
-             studentForm.style.display = 'block';
-             displaySection.style.display = 'none';
-             formTitle.textContent = 'Wprowadź dane ucznia i praktyki';
-         });
-     }
- );
+    const wynikiSzczegolowe = [];
+    for (const komitet of komitety) {
+        const progWyborczy = komitet.koalicja ? 8 : 5;
+        const wynikProcentowy = (komitet.glosy / totalGlosy) * 100;
+
+        wynikiSzczegolowe.push({
+            nazwa: komitet.nazwa,
+            progWyborczy: progWyborczy,
+            glosy: komitet.glosy,
+            wynikProcentowy: wynikProcentowy,
+            powyzejProgu: wynikProcentowy >= progWyborczy,
+        });
+    }
+
+    const komitetyPowyzejProgu = wynikiSzczegolowe.filter(komitet => komitet.powyzejProgu);
+
+    if (komitetyPowyzejProgu.length === 0) {
+        const row = wynikiTabelaBody.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 5;
+        cell.textContent = 'Żaden komitet nie przekroczył progu wyborczego.';
+         cell.style.textAlign = 'center';
+         return;
+    }
+
+    for (let i = 0; i < wynikiSzczegolowe.length; i++) {
+        const komitet = wynikiSzczegolowe[i];
+        const row = wynikiTabelaBody.insertRow();
+        row.insertCell(0).textContent = i + 1;
+        row.insertCell(1).textContent = komitet.nazwa;
+        row.insertCell(2).textContent = komitet.progWyborczy;
+        row.insertCell(3).textContent = komitet.glosy;
+        row.insertCell(4).textContent = komitet.wynikProcentowy.toFixed(2);
+    }
+});
