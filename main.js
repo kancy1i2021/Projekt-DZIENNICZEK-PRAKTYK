@@ -37,7 +37,6 @@ dod.addEventListener('click', (event) => {
 });
 
 liczenieButton.addEventListener('click', () => {
-    wynikiTabelaBody.innerHTML = '';
 
     let totalGlosy = 0;
     for (const komitet of komitety) {
