@@ -75,6 +75,9 @@ liczenieButton.addEventListener('click', () => {
     for (let i = 0; i < wynikiSzczegolowe.length; i++) {
         const komitet = wynikiSzczegolowe[i];
         const row = wynikiTabelaBody.insertRow();
+        if (komitet.powyzejProgu) {
+            row.classList.add('powyzejprogu');
+        }
         row.insertCell(0).textContent = i + 1;
         row.insertCell(1).textContent = komitet.nazwa;
         row.insertCell(2).textContent = komitet.progWyborczy;
